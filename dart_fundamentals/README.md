@@ -281,14 +281,71 @@ switch (diaDaSemanaInt) {
 
 ## Iterables:
 
-Um `iterable` nos permite relizar ações encadeadas gerando uma certa 'economia' de código comparado aos loops anteriores em alguns casos, são eles:
+Um `Iterable` nos permite relizar ações encadeadas gerando uma certa 'economia' de código comparado aos loops anteriores, é importante lembrar que alguns desses métodos retornam diretamente elementos da classe `Iterable`, com isso se faz necessário após a execução dos mesmos, retornar a lista para sua estrutura original com o método `.toList()`.
 
 - `.where()` onde podemos realizar filtros de forma mais legível;
 - `.takeWhile()` onde podemos filtrar elementos enquanto uma condição não se satisfaz;
 - `.skipWhile()` onde podemos remover elementos enquanto uma condição não se satisfaz;
 - `.map()` muito utilizado quando queremos realizar uma transformação em uma lista ou executar alguma regra de negócio com os elementos da mesma.
 
-Também é importante lembrar que todos esses métodos retornam diretamente elementos da classe `Iterable`, com isso se faz necessário após a execução dos mesmos retornar a lista para sua estrutura original com o método `.toList()`.
+- `.expand()` é utilizado para criar uma única lista a partir de uma lista `bidimensional`, mas retorna por padrão um `Iterable`:
+
+  ```dart
+  final lista = [
+    [1, 2],
+    [3, 4],
+  ];
+  final novaLista = lista.expand((numeros) => numeros).toList();
+  ```
+
+- `.any()` é utilizado para verificar se existe `algum` elemento dentro de uma lista:
+
+  ```dart
+  if (lista.any((nome) => nome == 'Vagner')) {
+    print('Contém Vagner na lista.');
+  }
+  ```
+
+- `.every()` verificar se uma condição é verdadeira para todos os items de uma lista:
+
+  ```dart
+  if (lista.every((nome) => nome.contains('V')) {
+    print('Todos os items contém a letra V.');
+  }
+  ```
+
+- `.sort()` é utilizado para realizar ordenações simples, como ordenar listas de inteiros ou Strings. O mesmo `não retorna um novo elemento`, mas sim ordena o próprio elemento que foi enviado para ele. Para ordenações mais complexas ou específicas, esse método pode receber uma função `Callback` personalizada:
+
+  ```dart
+  final pacientes = [
+    'Rodrigo Rahman | 35 | Desenvolvedor | SP',
+    'Vagner Reis | 24 | Desenvolvedor | CE',
+  ];
+  // Nesse caso, ordena a lista por odem alfabética pois o primeiro
+  // caractere de cada elemento é uma String.
+  pacientes.sort();
+
+  // Passando um função de Callback para ordernar pela idade do paciente.
+  pacientes.sort((primeiroPaciente, segundoPaciente) {
+    final a = int.parse(primeiroPaciente.split('|')[1]);
+    final b = int.parse(segundoPaciente.split('|')[1]);
+
+    if (a > b) return 1;
+    if (a == b) return 0;
+    return -1;
+  });
+  ```
+
+- `.comprateTo()` é um método pertencente às classes `default` do Dart que replica o mesmo comportamento de comparações feito no exemplo acima. Com isso podemos substituir todos as comparações por esse método e o resultado final continuará o mesmo:
+
+  ```dart
+  pacientes.sort((primeiroPaciente, segundoPaciente) {
+    final a = int.parse(primeiroPaciente.split('|')[1]);
+    final b = int.parse(segundoPaciente.split('|')[1]);
+
+    return a.compareTo(b);
+  });
+  ```
 
 ## Conversões e Manipulações de Strings:
 
