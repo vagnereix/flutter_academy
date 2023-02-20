@@ -1,0 +1,3 @@
+mixin Dancarino {
+  void dancar() {}
+}
