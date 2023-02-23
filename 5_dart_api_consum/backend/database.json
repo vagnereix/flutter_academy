@@ -1,0 +1,101 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "name": "Rodrigo Rahman",
+      "email": "rodrigorahman@academiadoflutter.com.br",
+      "password": "123"
+    },
+    {
+      "id": 1,
+      "name": "Guilherme",
+      "email": "guilherme@gmail.com",
+      "password": "1234"
+    }
+  ],
+  "products": [
+    {
+      "id": 0,
+      "title": "Academia do flutter"
+    },
+    {
+      "id": 1,
+      "title": "Jornada Dart"
+    },
+    {
+      "id": 2,
+      "title": "Jornada GetX"
+    }
+  ],
+  "alunos": [
+    {
+      "id": 0,
+      "nome": "Vagner",
+      "idade": 24,
+      "nomeCursos": ["Academia do Flutter", "Ignite", "Clean Code"],
+      "cursos": [
+        {
+          "id": 0,
+          "nome": "Academia do Flutter",
+          "isAluno": true
+        },
+        {
+          "id": 1,
+          "nome": "Ignite",
+          "isAluno": true
+        },
+        {
+          "id": 2,
+          "nome": "Clean Code",
+          "isAluno": false
+        }
+      ],
+      "endereco": {
+        "rua": "Rua Ademar Gomes Pereira",
+        "numero": 873,
+        "cidade": {
+          "id": 0,
+          "nome": "Iguatu"
+        },
+        "telefone": {
+          "ddd": 88,
+          "numero": "996190576"
+        }
+      }
+    },
+    {
+      "id": 1,
+      "nome": "Reis",
+      "nomeCursos": ["Academia do Flutter", "Ignite"],
+      "cursos": [
+        {
+          "id": 0,
+          "nome": "Academia do Flutter",
+          "isAluno": true
+        },
+        {
+          "id": 1,
+          "nome": "Ignite",
+          "isAluno": false
+        },
+        {
+          "id": 2,
+          "nome": "Clean Code",
+          "isAluno": false
+        }
+      ],
+      "endereco": {
+        "rua": "Rua Ernesto Pereira da Silva",
+        "numero": 33,
+        "cidade": {
+          "id": 1,
+          "nome": "Acopiara"
+        },
+        "telefone": {
+          "ddd": 88,
+          "numero": "998590736"
+        }
+      }
+    }
+  ]
+}
