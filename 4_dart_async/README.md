@@ -140,3 +140,104 @@
 
 - Com a API de `Completer` nós podemos trabalhar com a mesma API de `Futuros` mas nós temos o poder de `controlar` quando que um Futuro vai ser completado com `sucesso` ou com `erro`;
 - Interessante para utilizar em casos que precisaríamos receber diferentes callbacks para tratar cada estado de um `Future`.
+
+## Streams:
+
+- Um `Stream` é semelhando a um `Future` porém ao invés de retornar apenas um dado ou erro futuro, pode receber vários valores;
+- Resumidamente uma `Stream` é uma combinação de `Future`s;
+- O método `.periodic()` nos permite criar uma `Stream` definindo uma duração para retornar um dado após a mesma, similar ao `periodic()` da classe `Timer`:
+
+  ```dart
+  var stream = Stream<int>.periodic(interval, (int value) {
+    return value++ * 2;
+  });
+  ```
+
+- Podemos usar o `await for` para esperar vários dados de uma `Stream` e realizar alguma ação com os mesmos;
+- O método `.take()` é usado para cortar uma `Stream` em um determinado ponto, recebendo como parâmetro até quantas execuções queremos executar:
+
+  ```dart
+  stream = stream.take(5); // Encerra na quinta requisição enviada pela stream
+  ```
+
+- O método `.takeWhile()` é usado para cortar uma `Stream` quando uma condição for satisfeita:
+
+  ```dart
+  stream = stream.takeWhile((int numero) {
+    return numero < 10;
+  }); // Executa enquanto o número 'recebido' pela stream for menor que 10
+  ```
+
+- O método `.skip()` é usado para pular execuções de uma `Stream`, recebendo quantas execuções queremos pular:
+
+  ```dart
+  stream = stream.take(5).skip(2); // Encerra na quinta requisição enviada pela stream pulando as duas primeiras execuções
+  ```
+
+- O método `.skipWhile()` é usado para pular execuções de uma `Stream` quando uma condição for satisfeita:
+
+  ```dart
+  stream = stream.skipWhile((int numero) {
+    return numero < 10;
+  }); // Pula execuções da Stream enquanto o número 'recebido' pela mesma for menor que 10
+  ```
+
+- O método `.toList()` é usado para receber todos os valores de uma `Stream` quando a mesma estiver completada:
+
+  ```dart
+  final data = await stream.toList();
+  print(data); // [0, 2, 4, 6, 8]
+  ```
+
+- O método `.listen()` é usado para ouvir eventos de uma `Stream` liberando o programa para continuar a execução mas podendo realizar alguma operação com os valores recebidos:
+
+  ```dart
+  stream.listen((numero) {
+    print(numero);
+  });
+  ```
+
+- O método `.where()` é usado para filtrar execuções de uma `Stream`, semelhante ao `.skipWhile()` porém enquanto o mesmo pula execuções selecionadas, o `where` executa as selecionadas:
+
+  ```dart
+  stream.listen((numero) {
+    print(numero);
+  });
+  ```
+
+- Por padrão o `Dart` não permite que uma `Stream` seja ouvida por mais de um `listen`. Quando precisamos de um comportamento assim, podemos definir a `Stream` como `Broadcast` utilizando o método `.asBroadcastStream()`. Dessa forma a `Stream` passa a poder ser ouvida por mais de um `listen` na aplicação.
+
+## Stream controller:
+
+- Para criarmos uma `Stream` precisamos passar por um controlador, no `Dart` o controlador de streams se chama `StreamController`;
+- Podemos definir uma instância de `StreamController` para manipularmos uma `Stream` e na criação já a definir como `Broadcast` diretamente caso queiramos:
+
+  ```dart
+  final streamController = StreamController<int>.broadcast();
+  ```
+
+- Para criarmos uma porta de entrada para uma `Stream` utilizamos o `streamController.sink`. Dessa forma sempre que quisermos enviar algo para uma a `Stream`, utilizamos essa variável:
+
+  ```dart
+  final inStream = streamController.sink;
+  for (var numero in numeros) {
+    inStream.add(numero); // Passando dados para a stream
+  }
+  ```
+
+- Para recebermos a `Stream` de fato de dentro do controller (a saída dos dados), utilizamos o `streamController.stream`. Dessa forma temos acesso à todos os métodos vistos e listados acima:
+
+  ```dart
+  final outStream = streamController.stream;
+  outStream
+      .skip(1)
+      .where((numero) => numero % 2 == 0)
+      .map((numero) => 'O valor é $numero.')
+      .listen(print);
+  ```
+
+- Podemos também fechar a entrada de dados para uma Stream com o método `.close()` de um `StreamController`. Dessa forma a `Stream` não poderá mais receber dados:
+
+  ```dart
+  await streamController.close();
+  ```
