@@ -27,6 +27,7 @@ class _ImcValueNotifierPageState extends State<ImcValueNotifierPage> {
 
   @override
   void dispose() {
+    _imc.dispose();
     _weightController.dispose();
     _heightController.dispose();
     super.dispose();

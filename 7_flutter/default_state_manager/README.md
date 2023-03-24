@@ -28,13 +28,22 @@
 - Definimos que uma propriedade será monitorada utilizando o método construtor da classe, o `ValueNotifier()`;
 - Escuta as alterações através da `Widget` chamada `ValueListenableBuider()` que recebe a propriedade a ser monitorada;
 - Para notificarmos que o método buider do `valueNotifier` precisa ser re-executado, apenas precisamos alterar o valor da `propriedade` que o mesmo está ouvindo;
+- É importante sempre realizar o `dispose()` do `valueNotifier` no `dispose()` da página para evitar vazamento de memória;
 - Exemplo:
 
   ```dart
   class _ValueNotifierPageState extends State<ValueNotifierPage> {
     final ValueNotifier<String> _message = ValueNotifier('Estado inicial.');
 
-    void _changeMessage() => _message.value = 'Estado alterado.'
+    void _changeMessage() => _message.value = 'Estado alterado.';
+
+    @override
+    void dispose() {
+      _imc.dispose();
+      _weightController.dispose();
+      _heightController.dispose();
+      super.dispose();
+    }
 
     @override
     Widget build(BuildContext context) {
