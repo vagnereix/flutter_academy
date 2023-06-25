@@ -1,0 +1,6 @@
+[submodule "flutter_rr_challenges/rodrigo_rahman_challenge"]
+	path = flutter_rr_challenges/rodrigo_rahman_challenge
+	url = git@github.com:vagnereix/rodrigo_rahman_challenge.git
+[submodule "flutter_rr_challenges/rodrigo_rahman_challenge_02"]
+	path = flutter_rr_challenges/rodrigo_rahman_challenge_02
+	url = git@github.com:vagnereix/rodrigo_rahman_challenge_02.git
