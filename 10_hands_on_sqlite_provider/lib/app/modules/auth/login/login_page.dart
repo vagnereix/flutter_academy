@@ -38,18 +38,18 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: Column(
                           children: [
-                            const InputField(
+                            InputField(
                               label: 'E-mail',
                             ),
                             const SizedBox(height: 20),
-                            const InputField(
+                            InputField(
                               label: 'Senha',
                               obscureText: true,
                             ),
                             const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 TextButton(
                                   onPressed: () {},
@@ -115,7 +115,10 @@ class _LoginPageState extends State<LoginPage> {
                               children: [
                                 const Text('Não tem uma conta?'),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamed('/register');
+                                  },
                                   style: const ButtonStyle(
                                     visualDensity: VisualDensity.compact,
                                   ),
