@@ -33,11 +33,11 @@ class _HomePageState extends State<HomePage> {
             height: 200,
           ),
           Selector<HomeController, String>(
-            selector: (context, controller) => controller.user.ocupation,
-            builder: (context, ocupation, child) {
-              debugPrint('Rebuilding ocupation Selector');
+            selector: (context, controller) => controller.user.occupation,
+            builder: (context, occupation, child) {
+              debugPrint('Rebuilding occupation Selector');
 
-              return Text(ocupation);
+              return Text(occupation);
             },
           ),
           const SizedBox(
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           Selector<HomeController,
               Tuple2<void Function(String), void Function(String)>>(
             selector: (context, controller) {
-              return Tuple2(controller.changeName, controller.changeOcupation);
+              return Tuple2(controller.changeName, controller.changeOccupation);
             },
             builder: (context, tuple, child) {
               debugPrint('Rebuilding HomeController Consumer');
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () => tuple.item2('Software Engineer'),
-                    child: const Text('Change ocupation'),
+                    child: const Text('Change occupation'),
                   ),
                 ],
               );

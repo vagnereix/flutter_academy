@@ -1,6 +1,7 @@
 import 'package:provider/provider.dart';
 
 import '../../core/modules/app_routes_module.dart';
+import '../../services/user/user_service.dart';
 import 'login/login_controller.dart';
 import 'login/login_page.dart';
 import 'register/register_controller.dart';
@@ -12,11 +13,15 @@ class AuthModule extends AppRoutesModule {
   AuthModule()
       : super(
           providers: [
-            Provider(
-              create: (_) => LoginController(),
+            ChangeNotifierProvider(
+              create: (context) => LoginController(
+                userService: context.read<UserService>(),
+              ),
             ),
-            Provider(
-              create: (_) => RegisterController(),
+            ChangeNotifierProvider(
+              create: (context) => RegisterController(
+                userService: context.read<UserService>(),
+              ),
             ),
           ],
           routes: {

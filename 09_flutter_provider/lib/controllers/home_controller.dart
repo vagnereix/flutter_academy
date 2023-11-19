@@ -1,6 +1,6 @@
 import 'package:_flutter_provider/models/user_model.dart';
 import 'package:_flutter_provider/use_cases/users/change_user_name.dart';
-import 'package:_flutter_provider/use_cases/users/change_user_ocupation.dart';
+import 'package:_flutter_provider/use_cases/users/change_user_occupation.dart';
 import 'package:_flutter_provider/use_cases/users/create_user.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +14,8 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeOcupation(String ocupation) {
-    ChangeUserOcupation().call(user: _user, ocupation: ocupation);
+  void changeOccupation(String occupation) {
+    ChangeUserOccupation().call(user: _user, occupation: occupation);
     notifyListeners();
   }
 }

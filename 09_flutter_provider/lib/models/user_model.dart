@@ -1,11 +1,11 @@
 class UserModel {
   int? id;
   String name;
-  String ocupation;
+  String occupation;
 
   UserModel({
     required this.id,
     required this.name,
-    required this.ocupation,
+    required this.occupation,
   });
 }

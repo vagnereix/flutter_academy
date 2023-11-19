@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "894641886570",
+    "project_id": "todo-list-provider-33d13",
+    "storage_bucket": "todo-list-provider-33d13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894641886570:android:748b93d36b5891405f0113",
+        "android_client_info": {
+          "package_name": "br.com.vagnereix.u_hands_on_sqlite_provider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894641886570-ttgcpqhiilc2cfiga9m2j90jqoctdict.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.vagnereix.u_hands_on_sqlite_provider",
+            "certificate_hash": "f74a82e301c099177b7ca85e713fba9a7b9bd76e"
+          }
+        },
+        {
+          "client_id": "894641886570-nt9uqbruo7jkegc72pml717mkaip8dp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz-D6CMgkJjAP8QsH_vVIlpoKCIuUh01Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894641886570-nt9uqbruo7jkegc72pml717mkaip8dp6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "894641886570-84geatb5sbrcvava0nmel92s2kq4qvnf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.todo.provider.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

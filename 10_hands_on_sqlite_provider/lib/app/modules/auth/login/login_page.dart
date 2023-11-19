@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:provider/provider.dart';
+import 'package:validatorless/validatorless.dart';
 
+import '../../../core/notifier/app_listener_notifier.dart';
+import '../../../core/ui/messages.dart';
 import '../../../core/widgets/input_field.dart';
 import '../../../core/widgets/logo.dart';
+import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,6 +18,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailEC = TextEditingController();
+  final _passwordEC = TextEditingController();
+  final _focusEmail = FocusNode();
+
+  @override
+  void initState() {
+    AppListenerNotifier(changeNotifier: context.read<LoginController>()).listen(
+      context: context,
+      successCallback: (notifier, listener) {
+        debugPrint('✅ login realizado com sucesso');
+      },
+    );
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 25),
                     const Logo(),
                     Form(
+                      key: _formKey,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 40,
@@ -40,11 +63,25 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             InputField(
                               label: 'E-mail',
+                              controller: _emailEC,
+                              focusNode: _focusEmail,
+                              validator: Validatorless.multiple([
+                                Validatorless.required('E-mail obrigatório'),
+                                Validatorless.email('E-mail inválido'),
+                              ]),
                             ),
                             const SizedBox(height: 20),
                             InputField(
                               label: 'Senha',
                               obscureText: true,
+                              controller: _passwordEC,
+                              validator: Validatorless.multiple([
+                                Validatorless.required('Senha obrigatória'),
+                                Validatorless.min(
+                                  6,
+                                  'Senha deve ter no mínimo 6 caracteres',
+                                ),
+                              ]),
                             ),
                             const SizedBox(height: 20),
                             Row(
@@ -52,7 +89,21 @@ class _LoginPageState extends State<LoginPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (_emailEC.text.isEmpty) {
+                                      _focusEmail.requestFocus();
+                                      Messages.of(context).showError(
+                                        'Informe seu e-mail para recuperar a senha',
+                                      );
+                                    } else {
+                                      context
+                                          .read<LoginController>()
+                                          .forgotPassword(
+                                            context,
+                                            _emailEC.text,
+                                          );
+                                    }
+                                  },
                                   style: const ButtonStyle(
                                     visualDensity: VisualDensity.compact,
                                     padding: MaterialStatePropertyAll(
@@ -62,7 +113,14 @@ class _LoginPageState extends State<LoginPage> {
                                   child: const Text('Esqueceu a senha?'),
                                 ),
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      context.read<LoginController>().login(
+                                            _emailEC.text,
+                                            _passwordEC.text,
+                                          );
+                                    }
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 25,
@@ -98,7 +156,11 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             SignInButton(
                               Buttons.Google,
-                              onPressed: () {},
+                              onPressed: () {
+                                context
+                                    .read<LoginController>()
+                                    .signInWithGoogle();
+                              },
                               text: 'Continuar com o Google',
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 15,

@@ -6,40 +6,19 @@ import 'sqlite_migrations_factory.dart';
 
 // Singleton class to create a connection to the database
 class SqliteConnectionFactory {
-  SqliteConnectionFactory._() {
-    print('NOVA_INSTANCIA');
-  }
+  SqliteConnectionFactory._();
 
   static final SqliteConnectionFactory _instance = SqliteConnectionFactory._();
 
   static SqliteConnectionFactory get instance => _instance;
 
+  // ignore_for_file: constant_identifier_names
   static const _DB_VERSION = 1;
   static const _DB_NAME = '10_TODO_LIST_APP';
 
   final _lock = Lock();
 
   Database? _db;
-
-  Future<Database> getDatabase() async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, _DB_NAME);
-
-    if (_db == null) {
-      await _lock.synchronized(() async {
-        _db ??= await openDatabase(
-          path,
-          version: _DB_VERSION,
-          onCreate: _onCreate,
-          onConfigure: _onConfigure,
-          onUpgrade: _onUpdate,
-          onDowngrade: _onDowngrade,
-        );
-      });
-    }
-
-    return _db as Database;
-  }
 
   Future<void> _onConfigure(Database db) async {
     await db.execute('PRAGMA foreign_keys = ON');
@@ -68,6 +47,26 @@ class SqliteConnectionFactory {
   }
 
   Future<void> _onDowngrade(Database db, int oldVersion, int version) async {}
+
+  Future<Database> getDatabase() async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, _DB_NAME);
+
+    if (_db == null) {
+      await _lock.synchronized(() async {
+        _db ??= await openDatabase(
+          path,
+          version: _DB_VERSION,
+          onCreate: _onCreate,
+          onConfigure: _onConfigure,
+          onUpgrade: _onUpdate,
+          onDowngrade: _onDowngrade,
+        );
+      });
+    }
+
+    return _db as Database;
+  }
 
   void closeConnection() {
     _db?.close();

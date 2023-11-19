@@ -9,6 +9,7 @@ class InputField extends StatelessWidget {
   final ValueNotifier<bool> obscureTextNotifier;
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
+  final FocusNode? focusNode;
 
   InputField({
     Key? key,
@@ -17,6 +18,7 @@ class InputField extends StatelessWidget {
     this.suffixIconButton,
     this.controller,
     this.validator,
+    this.focusNode,
   })  : assert(obscureText == true ? suffixIconButton == null : true,
             'If obscureText is true, suffixIconButton must be null.'),
         obscureTextNotifier = ValueNotifier(obscureText),
@@ -29,6 +31,7 @@ class InputField extends StatelessWidget {
       builder: (_, obscureValue, child) {
         return TextFormField(
           controller: controller,
+          focusNode: focusNode,
           validator: validator,
           obscureText: obscureValue,
           decoration: InputDecoration(
