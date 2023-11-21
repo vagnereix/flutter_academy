@@ -21,4 +21,19 @@ abstract class AppRoutesModule {
           ),
         ),
       );
+
+  Widget getPage(String path, BuildContext context) {
+    final pageBuilder = _routes[path];
+
+    if (pageBuilder == null) {
+      throw Exception('Page not found');
+    }
+
+    return MultiProvider(
+      providers: _providers,
+      child: Builder(
+        builder: (context) => pageBuilder(context),
+      ),
+    );
+  }
 }

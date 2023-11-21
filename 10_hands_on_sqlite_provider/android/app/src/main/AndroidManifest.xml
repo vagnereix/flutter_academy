@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.vagnereix.u_hands_on_sqlite_provider">
    <application
-        android:label="_hands_on_sqlite_provider"
+        android:label="Todo App - Hands on with SQLite and Provider"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

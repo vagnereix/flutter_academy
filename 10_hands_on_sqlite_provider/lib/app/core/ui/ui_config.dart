@@ -8,7 +8,7 @@ class UiConfig {
     return ThemeData(
       textTheme: GoogleFonts.mandaliTextTheme(),
       primarySwatch: Colors.teal,
-      primaryColor: const Color(0XFFc8ede6),
+      primaryColor: Colors.teal,
       primaryColorLight: const Color(0XFFb4cec8),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

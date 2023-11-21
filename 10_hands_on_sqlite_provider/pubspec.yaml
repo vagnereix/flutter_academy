@@ -45,6 +45,7 @@ dependencies:
   validatorless: ^1.2.3
   flutter_overlay_loader: ^2.0.0
   google_sign_in: ^6.1.5
+  date_picker_timeline: ^1.2.5
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,9 @@ flutter:
     - family: EyeIcons
       fonts:
         - asset: assets/fonts/EyeIcons.ttf
+    - family: FilterIcon
+      fonts:
+        - asset: assets/fonts/FilterIcon.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

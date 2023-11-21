@@ -13,6 +13,7 @@ class SqliteAdmConnection with WidgetsBindingObserver {
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
+      case AppLifecycleState.hidden:
         sqliteConnection.closeConnection();
         break;
     }

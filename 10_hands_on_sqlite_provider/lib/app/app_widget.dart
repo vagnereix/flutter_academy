@@ -6,6 +6,7 @@ import 'core/ui/ui_config.dart';
 import 'modules/auth/auth_module.dart';
 import 'modules/home/home_module.dart';
 import 'modules/splash/splash_page.dart';
+import 'modules/tasks/tasks_module.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -35,6 +36,7 @@ class _AppWidgetState extends State<AppWidget> {
       behavior: HitTestBehavior.opaque,
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Todo List App',
         theme: UiConfig.theme,
         home: const SplashPage(),
@@ -42,6 +44,7 @@ class _AppWidgetState extends State<AppWidget> {
         routes: {
           ...AuthModule().routes,
           ...HomeModule().routes,
+          ...TasksModule().routes,
         },
       ),
     );
