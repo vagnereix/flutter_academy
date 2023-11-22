@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_toastr/flutter_toastr.dart';
 
 class Messages {
   final BuildContext context;
@@ -16,11 +17,12 @@ class Messages {
   }
 
   void _showMessage(String message, Color color) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: color,
-      ),
+    FlutterToastr.show(
+      message,
+      context,
+      backgroundColor: color,
+      position: FlutterToastr.bottom,
+      duration: FlutterToastr.lengthLong,
     );
   }
 }

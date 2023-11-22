@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["sqflite", "sqlite", "sublist", "unfocus", "Validatorless"]
+  "cSpell.words": [
+    "sqflite",
+    "sqlite",
+    "sublist",
+    "Toastr",
+    "unfocus",
+    "Validatorless"
+  ]
 }

@@ -5,8 +5,12 @@ import 'package:provider/provider.dart';
 import 'app_widget.dart';
 import 'core/auth/app_auth_provider.dart';
 import 'core/database/sqlite_connection_factory.dart';
+import 'repositories/tasks/tasks_repository.dart';
+import 'repositories/tasks/tasks_repository_impl.dart';
 import 'repositories/user/user_repository.dart';
 import 'repositories/user/user_repository_impl.dart';
+import 'services/tasks/tasks_service.dart';
+import 'services/tasks/tasks_service_impl.dart';
 import 'services/user/user_service.dart';
 import 'services/user/user_service_impl.dart';
 
@@ -31,6 +35,16 @@ class AppModule extends StatelessWidget {
         Provider<UserService>(
           create: (context) => UserServiceImpl(
             userRepository: context.read<UserRepository>(),
+          ),
+        ),
+        Provider<TasksRepository>(
+          create: (context) => TasksRepositoryImpl(
+            connectionFactory: context.read<SqliteConnectionFactory>(),
+          ),
+        ),
+        Provider<TasksService>(
+          create: (context) => TasksServiceImpl(
+            tasksRepository: context.read<TasksRepository>(),
           ),
         ),
         ChangeNotifierProvider<AppAuthProvider>(

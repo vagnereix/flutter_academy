@@ -24,7 +24,9 @@ class TaskWidget extends StatelessWidget {
             contentPadding: EdgeInsets.zero,
             leading: Checkbox(
               value: true,
-              onChanged: (value) {},
+              onChanged: (value) {
+                debugPrint('Checkbox changed: $value');
+              },
             ),
             title: const Text(
               'Buy milk',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/ui/filter_icon.dart';
+import '../../core/ui/theme_extension.dart';
 import '../tasks/tasks_module.dart';
 import 'widgets/home_drawer.dart';
 import 'widgets/home_filters.dart';
@@ -13,8 +14,22 @@ class HomePage extends StatelessWidget {
 
   void _gotToCreateTask(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => TasksModule().getPage('/task/create', context),
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return TasksModule().getPage('/task/create', context);
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          animation = CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInQuad,
+          );
+
+          return ScaleTransition(
+            scale: animation,
+            alignment: Alignment.bottomRight,
+            child: child,
+          );
+        },
       ),
     );
   }
@@ -25,7 +40,7 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(color: Colors.teal.shade200),
+          iconTheme: IconThemeData(color: context.primaryColor),
           actions: [
             PopupMenuButton(
               icon: const Icon(
