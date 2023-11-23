@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
     appListener.listen(
       context: context,
       successCallback: (notifier, listener) {
-        Navigator.pop(context);
+        debugPrint('✅ ~ account created');
       },
       errorCallback: (changeNotifier, appListenerNotifier) => debugPrint(
         '🐞 ~ sign in error',
@@ -53,28 +53,24 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: context.primaryColor),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: ClipOval(
             child: Container(
-              color: context.primaryColor.withAlpha(20),
-              padding: const EdgeInsets.all(8),
+              color: context.primaryColor.withAlpha(40),
+              padding: const EdgeInsets.all(10),
               child: Icon(
-                Icons.arrow_back_ios_outlined,
                 size: 20,
+                Icons.arrow_back_rounded,
                 color: context.primaryColor,
               ),
             ),
-          ),
-        ),
-        title: Text(
-          'Create your account',
-          style: TextStyle(
-            fontSize: 18,
-            color: context.primaryColor,
           ),
         ),
       ),

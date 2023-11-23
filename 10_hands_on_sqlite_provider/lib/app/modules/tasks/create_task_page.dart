@@ -45,6 +45,23 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: ClipOval(
+            child: Container(
+              color: context.primaryColor.withAlpha(40),
+              padding: const EdgeInsets.all(10),
+              child: Icon(
+                size: 20,
+                Icons.arrow_back_rounded,
+                color: context.primaryColor,
+              ),
+            ),
+          ),
+        ),
         iconTheme: IconThemeData(color: context.primaryColor),
         backgroundColor: Colors.transparent,
         title: const Text('Create task'),

@@ -9,21 +9,24 @@ class HomeTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          Text(
-            'Today\'s tasks'.toUpperCase(),
-            style: context.titleStyle,
-          ),
-          const SizedBox(height: 20),
-          const TaskWidget(),
-          const TaskWidget(),
-          const TaskWidget(),
-          const TaskWidget(),
-          const SizedBox(height: 20),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            Text(
+              'Today\'s tasks'.toUpperCase(),
+              style: context.titleStyle,
+            ),
+            const SizedBox(height: 20),
+            const TaskWidget(),
+            const TaskWidget(),
+            const TaskWidget(),
+            const TaskWidget(),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

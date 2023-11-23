@@ -4,26 +4,14 @@ import 'package:provider/provider.dart';
 import '../../../core/ui/theme_extension.dart';
 import '../create_task_controller.dart';
 
-class CalendarButton extends StatefulWidget {
+class CalendarButton extends StatelessWidget {
   const CalendarButton({super.key});
 
   @override
-  State<CalendarButton> createState() => _CalendarButtonState();
-}
-
-class _CalendarButtonState extends State<CalendarButton> {
-  late CreateTaskController controller;
-  late bool hasSelectedDate;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    controller = Provider.of<CreateTaskController>(context);
-    hasSelectedDate = controller.selectedDate != null;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<CreateTaskController>(context);
+    final hasSelectedDate = controller.selectedDate != null;
+
     return InkWell(
       onTap: () async {
         final lastDate = DateTime.now().add(const Duration(days: 365));

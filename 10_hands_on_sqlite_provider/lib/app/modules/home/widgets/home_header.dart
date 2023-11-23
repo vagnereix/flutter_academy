@@ -14,10 +14,13 @@ class HomeHeader extends StatelessWidget {
     return Selector<AppAuthProvider, String>(
       selector: (_, provider) => provider.user?.displayName ?? '',
       builder: (_, userName, __) {
-        return Text(
-          'Welcome back, $userName!',
-          style: context.textTheme.headlineSmall?.copyWith(
-            fontWeight: FontWeight.bold,
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text(
+            'Welcome back, $userName!',
+            style: context.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
         );
       },

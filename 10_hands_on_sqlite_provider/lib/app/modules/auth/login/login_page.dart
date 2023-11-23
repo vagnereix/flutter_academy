@@ -130,15 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                                           );
                                     }
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 25,
-                                      vertical: 15,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
                                   child: const Text('Login'),
                                 ),
                               ],

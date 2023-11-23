@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../../core/database/sqlite_connection_factory.dart';
+import '../../models/task_model.dart';
 import 'tasks_repository.dart';
 
 class TasksRepositoryImpl extends TasksRepository {
@@ -22,5 +23,37 @@ class TasksRepositoryImpl extends TasksRepository {
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  @override
+  Future<List<TaskModel>> getTasksByPeriod(
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
+    final startDateWithInitialHours = startDate.copyWith(
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    );
+
+    final endDateWithFinalHours = endDate.copyWith(
+      hour: 23,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    );
+
+    final db = await _connectionFactory.getDatabase();
+
+    final data = await db.rawQuery(
+      'SELECT * FROM tasks WHERE date BETWEEN ? AND ? ORDER BY date ASC',
+      [
+        startDateWithInitialHours.toIso8601String(),
+        endDateWithFinalHours.toIso8601String(),
+      ],
+    );
+
+    return data.map((task) => TaskModel.fromMap(task)).toList();
   }
 }

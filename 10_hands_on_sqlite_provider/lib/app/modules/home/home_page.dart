@@ -69,19 +69,15 @@ class HomePage extends StatelessWidget {
                 minHeight: constraints.maxHeight,
                 minWidth: constraints.maxWidth,
               ),
-              child: Container(
-                /** remover e realocar espaçamentos */
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: const IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      HomeHeader(),
-                      HomeFilters(),
-                      HomeWeekFilter(),
-                      HomeTasks(),
-                    ],
-                  ),
+              child: const IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HomeHeader(),
+                    HomeFilters(),
+                    HomeWeekFilter(),
+                    HomeTasks(),
+                  ],
                 ),
               ),
             ),

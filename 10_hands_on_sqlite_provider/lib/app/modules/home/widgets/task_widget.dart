@@ -8,7 +8,7 @@ class TaskWidget extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(top: 10, bottom: 20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -19,26 +19,31 @@ class TaskWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: IntrinsicHeight(
-          child: ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: Checkbox(
-              value: true,
-              onChanged: (value) {
-                debugPrint('Checkbox changed: $value');
-              },
-            ),
-            title: const Text(
-              'Buy milk',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+        child: InkWell(
+          onTap: () {
+            debugPrint('Task tapped');
+          },
+          child: IntrinsicHeight(
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+              leading: Checkbox(
+                value: true,
+                onChanged: (value) {
+                  debugPrint('Checkbox changed: $value');
+                },
               ),
-            ),
-            subtitle: const Text(
-              '2 liters of milk',
-              style: TextStyle(
-                fontSize: 14,
+              title: const Text(
+                'Buy milk',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: const Text(
+                '2 liters of milk',
+                style: TextStyle(
+                  fontSize: 14,
+                ),
               ),
             ),
           ),
