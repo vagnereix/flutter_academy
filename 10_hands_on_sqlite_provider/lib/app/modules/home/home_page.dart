@@ -64,8 +64,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool showFinishedTasks = widget._controller.showFinishedTasks;
-
     return Scaffold(
       drawerEnableOpenDragGesture: true,
       appBar: AppBar(
@@ -82,10 +80,10 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (_) {
               return [
                 PopupMenuItem<bool>(
-                  value: showFinishedTasks,
+                  value: true,
                   child: TextButton(
                     child: Text(
-                      '${showFinishedTasks ? 'Hide' : 'Show'} completed tasks',
+                      '${widget._controller.showFinishedTasks ? 'Hide' : 'Show'} completed tasks',
                     ),
                     onPressed: () {
                       widget._controller.toggleShowFinishedTasks();
@@ -99,25 +97,15 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: const HomeDrawer(),
-      body: LayoutBuilder(
-        builder: (context, constraints) => SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
-              minWidth: constraints.maxWidth,
-            ),
-            child: const IntrinsicHeight(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  HomeHeader(),
-                  HomeFilters(),
-                  HomeWeekFilter(),
-                  HomeTasks(),
-                ],
-              ),
-            ),
-          ),
+      body: const SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            HomeHeader(),
+            HomeFilters(),
+            HomeWeekFilter(),
+            HomeTasks(),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

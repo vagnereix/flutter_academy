@@ -17,8 +17,7 @@ class HomeTasks extends StatelessWidget {
           (task) => Dismissible(
             key: UniqueKey(),
             confirmDismiss: (direction) async {
-              final isDeleteDirection =
-                  direction == DismissDirection.endToStart;
+              if (direction != DismissDirection.endToStart) return false;
 
               final controller = context.read<HomeController>();
 
@@ -28,7 +27,7 @@ class HomeTasks extends StatelessWidget {
                   return AlertDialog(
                     title: const Text('Are you sure?'),
                     content: Text(
-                      'Do you want to ${isDeleteDirection ? 'delete' : 'finish'} ${task.description}?',
+                      'Do you want to delete the "${task.description}" task?',
                     ),
                     actions: [
                       TextButton(
@@ -45,14 +44,10 @@ class HomeTasks extends StatelessWidget {
               );
 
               if (confirm) {
-                if (isDeleteDirection) {
-                  await controller.deleteTask(task);
-                } else {
-                  await controller.toggleTaskStatus(task);
-                }
+                await controller.deleteTask(task);
               }
 
-              return isDeleteDirection && confirm;
+              return confirm;
             },
             dismissThresholds: const {
               DismissDirection.startToEnd: 0.3,
@@ -82,29 +77,26 @@ class HomeTasks extends StatelessWidget {
         )
         .toList();
 
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
-            Selector<HomeController, String>(
-              selector: (_, controller) =>
-                  controller.filterSelected.description,
-              builder: (_, description, __) {
-                return Text(
-                  '$description\'s tasks'.toUpperCase(),
-                  style: context.titleStyle,
-                );
-              },
-            ),
-            const SizedBox(height: 20),
-            ...tasksWidgets ?? const [],
-            const SizedBox(height: 20),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          Selector<HomeController, String>(
+            selector: (_, controller) => controller.filterSelected.description,
+            builder: (_, description, __) {
+              return Text(
+                '$description\'s tasks'.toUpperCase(),
+                style: context.titleStyle,
+              );
+            },
+          ),
+          const SizedBox(height: 20),
+          ...tasksWidgets ?? const [],
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }

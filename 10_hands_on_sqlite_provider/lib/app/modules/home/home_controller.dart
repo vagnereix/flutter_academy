@@ -131,32 +131,7 @@ class HomeController extends AppChangeNotifier {
       return t;
     }).toList();
 
-    await _switchFromMultipleFiltersAndExecute(
-      filters: [
-        TaskFilterToday(),
-        TaskFilterTomorrow(),
-        TaskFilterWeek(),
-      ],
-      callbackToday: () async {
-        todayTotalTasks = todayTotalTasks?.copyWith(
-          finishedTasksCount:
-              todayTotalTasks!.finishedTasksCount + (task.finished ? -1 : 1),
-        );
-      },
-      callbackTomorrow: () async {
-        tomorrowTotalTasks = tomorrowTotalTasks?.copyWith(
-          finishedTasksCount:
-              tomorrowTotalTasks!.finishedTasksCount + (task.finished ? -1 : 1),
-        );
-      },
-      callbackWeek: () async {
-        weekTotalTasks = weekTotalTasks?.copyWith(
-          finishedTasksCount:
-              weekTotalTasks!.finishedTasksCount + (task.finished ? -1 : 1),
-        );
-      },
-    );
-
+    refreshPage();
     setLoading(false);
     notifyListeners();
   }
@@ -167,22 +142,6 @@ class HomeController extends AppChangeNotifier {
   }
 
   Future<void> deleteTask(TaskModel task) async {}
-
-  Future<void> _switchFromMultipleFiltersAndExecute({
-    required List<TaskFilter> filters,
-    Function()? callbackToday,
-    Function()? callbackTomorrow,
-    Function()? callbackWeek,
-  }) async {
-    filters.map((filter) async {
-      return await _switchFromFilterAndExecute<void>(
-        filter: filter,
-        callbackToday: callbackToday,
-        callbackTomorrow: callbackTomorrow,
-        callbackWeek: callbackWeek,
-      );
-    });
-  }
 
   Future<T> _switchFromFilterAndExecute<T>({
     required TaskFilter filter,
