@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/ui/theme_extension.dart';
 import '../../../models/task_model.dart';
 import '../home_controller.dart';
 
@@ -16,7 +17,8 @@ class TaskWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:
+            task.finished ? context.primaryColor.withAlpha(40) : Colors.white,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
@@ -28,10 +30,11 @@ class TaskWidget extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
         onTap: () {
-          debugPrint('Task tapped');
+          context.read<HomeController>().toggleTaskStatus(task);
         },
         child: ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           leading: Checkbox(
             value: task.finished,
             onChanged: (value) {

@@ -22,7 +22,7 @@ class HomeController extends AppChangeNotifier {
   DateTime? firstDayOfWeek;
   DateTime? selectedDate;
 
-  bool showFinishedTasks = false;
+  bool showFinishedTasks = true;
 
   HomeController({required TasksService tasksService})
       : _tasksService = tasksService;
@@ -119,21 +119,11 @@ class HomeController extends AppChangeNotifier {
     showLoaderAndResetState();
     notifyListeners();
 
-    await _tasksService.toggleTaskStatus(
-      task.copyWith(finished: !task.finished),
-    );
+    final updatedTask = task.copyWith(finished: !task.finished);
+    await _tasksService.toggleTaskStatus(updatedTask);
 
-    filteredTasks = filteredTasks?.map((t) {
-      if (t.id == task.id) {
-        return t.copyWith(finished: !t.finished);
-      }
-
-      return t;
-    }).toList();
-
-    refreshPage();
     setLoading(false);
-    notifyListeners();
+    refreshPage();
   }
 
   Future<void> toggleShowFinishedTasks() async {
