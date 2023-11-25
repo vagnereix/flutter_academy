@@ -6,4 +6,5 @@ abstract class TasksRepository {
     DateTime startDate,
     DateTime endDate,
   );
+  Future<void> toggleTaskStatus(TaskModel task);
 }

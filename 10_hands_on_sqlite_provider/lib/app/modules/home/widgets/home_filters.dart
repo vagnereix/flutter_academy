@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/ui/theme_extension.dart';
 import '../../../models/task_filter_enum.dart';
 import '../../../models/total_tasks_model.dart';
+import '../home_controller.dart';
 import 'todo_card_filter.dart';
 
 class HomeFilters extends StatelessWidget {
@@ -32,28 +34,25 @@ class HomeFilters extends StatelessWidget {
             child: Row(
               children: [
                 TodoCardFilter(
-                  label: 'Today',
-                  filter: TaskFilterEnum.today,
-                  totalTasksModel: TotalTasksModel(
-                    tasksCount: 10,
-                    finishedTasksCount: 5,
-                  ),
+                  label: TaskFilterToday().description,
+                  filter: TaskFilterToday(),
+                  totalTasksModel:
+                      context.select<HomeController, TotalTasksModel?>(
+                          (controller) => controller.todayTotalTasks),
                 ),
                 TodoCardFilter(
-                  label: 'Tomorrow',
-                  filter: TaskFilterEnum.tomorrow,
-                  totalTasksModel: TotalTasksModel(
-                    tasksCount: 7,
-                    finishedTasksCount: 2,
-                  ),
+                  label: TaskFilterTomorrow().description,
+                  filter: TaskFilterTomorrow(),
+                  totalTasksModel:
+                      context.select<HomeController, TotalTasksModel?>(
+                          (controller) => controller.tomorrowTotalTasks),
                 ),
                 TodoCardFilter(
-                  label: 'Week',
-                  filter: TaskFilterEnum.week,
-                  totalTasksModel: TotalTasksModel(
-                    tasksCount: 17,
-                    finishedTasksCount: 7,
-                  ),
+                  label: TaskFilterWeek().description,
+                  filter: TaskFilterWeek(),
+                  totalTasksModel:
+                      context.select<HomeController, TotalTasksModel?>(
+                          (controller) => controller.weekTotalTasks),
                 ),
               ],
             ),

@@ -53,4 +53,8 @@ class TasksServiceImpl implements TasksService {
       tasks: tasks,
     );
   }
+
+  @override
+  Future<void> toggleTaskStatus(TaskModel task) =>
+      _tasksRepository.toggleTaskStatus(task);
 }

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class TaskModel {
@@ -26,8 +27,8 @@ class TaskModel {
     return TaskModel(
       id: map['id'] as int,
       description: map['description'] as String,
-      date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
-      finished: map['finished'] as bool,
+      date: DateTime.parse(map['date'] as String),
+      finished: map['status'] as int == 1,
     );
   }
 
@@ -35,4 +36,23 @@ class TaskModel {
 
   factory TaskModel.fromJson(String source) =>
       TaskModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'TaskModel(id: $id, description: $description, date: $date, finished: $finished)';
+  }
+
+  TaskModel copyWith({
+    int? id,
+    String? description,
+    DateTime? date,
+    bool? finished,
+  }) {
+    return TaskModel(
+      id: id ?? this.id,
+      description: description ?? this.description,
+      date: date ?? this.date,
+      finished: finished ?? this.finished,
+    );
+  }
 }

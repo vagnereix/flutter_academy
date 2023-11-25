@@ -30,18 +30,21 @@ class TasksRepositoryImpl extends TasksRepository {
     DateTime startDate,
     DateTime endDate,
   ) async {
-    final startDateWithInitialHours = startDate.copyWith(
-      hour: 0,
-      minute: 0,
-      second: 0,
-      millisecond: 0,
+    final startDateWithInitialHours = DateTime(
+      startDate.year,
+      startDate.month,
+      startDate.day,
+      0,
+      0,
+      0,
     );
-
-    final endDateWithFinalHours = endDate.copyWith(
-      hour: 23,
-      minute: 59,
-      second: 59,
-      millisecond: 999,
+    final endDateWithFinalHours = DateTime(
+      endDate.year,
+      endDate.month,
+      endDate.day,
+      23,
+      59,
+      59,
     );
 
     final db = await _connectionFactory.getDatabase();
@@ -55,5 +58,19 @@ class TasksRepositoryImpl extends TasksRepository {
     );
 
     return data.map((task) => TaskModel.fromMap(task)).toList();
+  }
+
+  @override
+  Future<void> toggleTaskStatus(TaskModel task) async {
+    final db = await _connectionFactory.getDatabase();
+
+    await db.update(
+      'tasks',
+      {
+        'status': task.finished ? 1 : 0,
+      },
+      where: 'id = ?',
+      whereArgs: [task.id],
+    );
   }
 }

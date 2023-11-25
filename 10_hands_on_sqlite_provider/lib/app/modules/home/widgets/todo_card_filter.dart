@@ -8,7 +8,7 @@ import '../home_controller.dart';
 
 class TodoCardFilter extends StatelessWidget {
   final String label;
-  final TaskFilterEnum filter;
+  final TaskFilter filter;
   final TotalTasksModel? totalTasksModel;
 
   const TodoCardFilter({
@@ -31,12 +31,18 @@ class TodoCardFilter extends StatelessWidget {
     return percent / 100;
   }
 
+  int get uncompletedTasksCount {
+    final totalTasksCount = totalTasksModel?.tasksCount ?? 0;
+    final finishedTasksCount = totalTasksModel?.finishedTasksCount ?? 0;
+
+    return totalTasksCount - finishedTasksCount;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final isSelected = filter ==
-        context.select<HomeController, TaskFilterEnum>(
-          (value) => value.filterSelected,
-        );
+    final bool isSelected = context.select<HomeController, bool>(
+      (value) => value.filterSelected.runtimeType == filter.runtimeType,
+    );
 
     return Container(
       margin: const EdgeInsets.only(right: 10),
@@ -52,14 +58,14 @@ class TodoCardFilter extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          context.read<HomeController>().setFilter(filter);
+          context.read<HomeController>().getTasksByFilter(filter);
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${totalTasksModel?.tasksCount} tasks'.toUpperCase(),
+              '$uncompletedTasksCount tasks'.toUpperCase(),
               style: context.titleStyle.copyWith(
                 fontSize: 10,
                 color: isSelected ? Colors.white : Colors.grey,

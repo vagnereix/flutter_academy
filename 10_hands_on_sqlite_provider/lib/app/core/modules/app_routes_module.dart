@@ -15,9 +15,11 @@ abstract class AppRoutesModule {
   Map<String, WidgetBuilder> get routes => _routes.map(
         (key, widgetBuilder) => MapEntry(
           key,
-          (context) => MultiProvider(
+          (_) => MultiProvider(
             providers: _providers,
-            child: widgetBuilder(context),
+            child: Builder(
+              builder: (context) => widgetBuilder(context),
+            ),
           ),
         ),
       );

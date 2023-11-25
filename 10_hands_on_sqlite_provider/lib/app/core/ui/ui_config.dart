@@ -6,6 +6,7 @@ class UiConfig {
 
   static ThemeData get theme {
     return ThemeData(
+      useMaterial3: false,
       textTheme: GoogleFonts.poppinsTextTheme(),
       primarySwatch: Colors.teal,
       primaryColor: Colors.teal,

@@ -64,7 +64,6 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
         ),
         iconTheme: IconThemeData(color: context.primaryColor),
         backgroundColor: Colors.transparent,
-        title: const Text('Create task'),
       ),
       body: Form(
         key: _formKey,

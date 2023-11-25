@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import '../../../models/task_model.dart';
+import '../home_controller.dart';
 
 class TaskWidget extends StatelessWidget {
-  const TaskWidget({super.key});
+  final TaskModel task;
+  final DateFormat _format = DateFormat('dd/MM/yyyy');
+
+  TaskWidget({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
-        padding: const EdgeInsets.only(top: 10, bottom: 20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -20,30 +27,29 @@ class TaskWidget extends StatelessWidget {
           ],
         ),
         child: InkWell(
+          borderRadius: BorderRadius.circular(15),
           onTap: () {
             debugPrint('Task tapped');
           },
-          child: IntrinsicHeight(
-            child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-              leading: Checkbox(
-                value: true,
-                onChanged: (value) {
-                  debugPrint('Checkbox changed: $value');
-                },
+          child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+            leading: Checkbox(
+              value: task.finished,
+              onChanged: (value) {
+                context.read<HomeController>().toggleTaskStatus(task);
+              },
+            ),
+            title: Text(
+              task.description,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
-              title: const Text(
-                'Buy milk',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              subtitle: const Text(
-                '2 liters of milk',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
+            ),
+            subtitle: Text(
+              _format.format(task.date),
+              style: const TextStyle(
+                fontSize: 14,
               ),
             ),
           ),

@@ -6,4 +6,5 @@ abstract class TasksService {
   Future<List<TaskModel>> getTodayTasks();
   Future<List<TaskModel>> getTomorrowTasks();
   Future<WeekTaskModel> getWeekTasks();
+  Future<void> toggleTaskStatus(TaskModel task);
 }

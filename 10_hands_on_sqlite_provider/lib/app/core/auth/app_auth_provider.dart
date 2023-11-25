@@ -22,11 +22,15 @@ class AppAuthProvider extends ChangeNotifier {
       notifyListeners();
     });
 
-    _firebaseAuth.idTokenChanges().listen((user) {
+    _firebaseAuth.authStateChanges().listen((user) async {
       if (user != null) {
-        AppNavigator.to.pushNamedAndRemoveUntil('/home', (_) => false);
+        Future.delayed(const Duration(seconds: 1), () async {
+          AppNavigator.to.pushNamedAndRemoveUntil('/home', (_) => false);
+        });
       } else {
-        AppNavigator.to.pushNamedAndRemoveUntil('/login', (_) => false);
+        Future.delayed(const Duration(seconds: 1), () async {
+          AppNavigator.to.pushNamedAndRemoveUntil('/login', (_) => false);
+        });
       }
 
       notifyListeners();
